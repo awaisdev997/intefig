@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { FOOTER_NAV, SERVICES, SOCIALS, CONTACT, CALENDLY } from '../data/content'
 import { SERVICE_SLUGS } from '../data/serviceDetails'
 import { NavItemLink } from './NavItemLink'
-import { LogoLockup } from './Logo'
+import { LOGO_WHITE as logoWhite } from '../assets/logoData'
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-sage-800 pt-20 text-white" aria-label="Footer">
@@ -12,7 +12,7 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 pb-10 md:px-8">
         <div className="grid gap-12 pb-14 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <LogoLockup variant="dark" idSuffix="footer" markClassName="h-11 w-11 md:h-12 md:w-12" textClassName="text-[24px] md:text-[26px]" />
+            <img src={logoWhite} alt="INTEFIG logo" className="h-12 w-auto md:h-14" width={813} height={251} />
             <p className="eyebrow mt-3 !text-[10px] text-sage-100">ALL ABOUT EMAIL</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/85">Retention. Automated. Delivered. Email, SMS and automation for brands that want repeat buyers.</p>
             <a href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary mt-6 !px-6 !py-2.5">Let's Talk <ArrowUpRight size={15} /></a>
