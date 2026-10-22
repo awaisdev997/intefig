@@ -71,3 +71,28 @@ src/
 - Services scene rebuilt: the rotating slab carousel is now a constant central "UI card" whose accent bar lerps to the active service colour, with five satellite nodes damped between per-service layouts and a thin ellipse ring that no longer intersects geometry.
 - About/Contact cores: faceted flat-shaded icosahedra replaced with smooth physical-material spheres (clearcoat, subtle wireframe shell on About); orbit words moved out of the 3D scene into an accessible HTML chip row; lighting softened (hemisphere fill, point intensities 12/10 → 6/5).
 - Team section now uses the real portraits published on intefig.com (`src/data/teamPhotos.ts`, WebP, lazy-loaded as a separate chunk), matched to each member by the source site's own team ordering; the founder card uses the site's founder portrait. One exception: the photo served in Abdur Rafy's slot on the source site is a generic stock image that cannot be verified as him, so his card intentionally uses a monogram placeholder until a real photo is provided.
+
+## Lottie animations
+
+The site's section illustrations are now lightweight Lottie animations (via `lottie-react`) instead of Three.js/WebGL scenes — Three.js, React Three Fiber and Drei were removed from the project entirely. All animations are rendered by the reusable `src/components/LottieIllustration.tsx`: each animation's JSON lazy-loads as its own chunk only when its section approaches the viewport (the hero animation loads eagerly), playback pauses while off-screen, and under `prefers-reduced-motion` no animation autoplays — a single static frame (~55% through the animation) is shown instead. If an animation fails to load, its section simply renders without it.
+
+Colors in the animations below were adapted to the INTEFIG brand palette (sage / ink / terracotta). All are free animations used under the **Lottie Simple License** (commercial use permitted; attribution is not required and is credited here voluntarily).
+
+| File | Animation | Author | Source | License |
+| --- | --- | --- | --- | --- |
+| hero-envelope.json | mail | Andrea Fortuna | https://lottiefiles.com/free-animation/mail-mByfOKyVpN | Lottie Simple License |
+| email-campaigns.json | Successful mail | mohan | https://lottiefiles.com/free-animation/successful-mail-ZXFSWJuL8c | Lottie Simple License |
+| ecommerce-automation.json | ecommerce blue | Brendan Stanton | https://lottiefiles.com/free-animation/ecommerce-blue-uoxZDjqcp8 | Lottie Simple License |
+| sms-automation.json | Chat / Messenger | Ali | https://lottiefiles.com/free-animation/chat-messenger-8k9G6ELAMG | Lottie Simple License |
+| tools-integration.json | Settings icon | Poritos Roy | https://lottiefiles.com/free-animation/settings-icon-OLsDEyaAJi | Lottie Simple License |
+| landing-pages.json | List | Creative | https://lottiefiles.com/free-animation/list-vAak6TBfEY | Lottie Simple License |
+| lead-generation.json | Email capture | LottieFiles free library (email marketing collection) | https://lottiefiles.com/free-animations/email-marketing | Lottie Simple License |
+| global-network.json | Internet or Website | Grabill Ribble | https://lottiefiles.com/free-animation/internet-or-website-vEdSeWqmIZ | Lottie Simple License |
+| contact-message.json | Inbox message animation | Poritos Roy | https://lottiefiles.com/free-animation/inbox-message-animation-BB63H1d1YZ | Lottie Simple License |
+
+Where each animation is used:
+
+- **Hero** — `hero-envelope.json`, above the headline, with the five pipeline labels (EMAIL, AUTOMATION, DATA, CUSTOMERS, REVENUE) as gently floating HTML pills.
+- **Services** — one animation per service in the scroll-pinned panel, crossfading as the active service changes: Email Campaigns → `email-campaigns.json`, eCommerce Automation → `ecommerce-automation.json`, SMS Automation → `sms-automation.json`, Tools Integration → `tools-integration.json`, Landing Pages → `landing-pages.json`, Lead Generation / Surveys → `lead-generation.json`.
+- **About** — `global-network.json` in the framed area above the discipline chips.
+- **Contact** — `contact-message.json` on a light panel beside the form (the ink line-draw needs a light ground on the dark section).

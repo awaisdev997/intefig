@@ -1,20 +1,25 @@
-import { lazy, Suspense, useRef, useState } from 'react'
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { SERVICES } from '../data/content'
 import { SectionHeading } from './SectionHeading'
-import { SceneFallback } from './SceneFallback'
-import { useOnScreen } from '../hooks/useInView'
-import { useDevicePerformance } from '../hooks/useDevicePerformance'
+import { LottieIllustration } from './LottieIllustration'
 import { serviceProgressToIndex } from '../animations/serviceAnimations'
-const ServiceCanvas = lazy(() => import('./three/ServiceObjects').then(m => ({ default: m.ServiceCanvas })))
+/** One Lottie illustration per service, in SERVICES order. Each JSON is a
+ *  separate lazy chunk, fetched only when the services panel nears the viewport. */
+const SERVICE_LOTTIE_LOADERS = [
+  () => import('../assets/lottie/email-campaigns.json'),
+  () => import('../assets/lottie/ecommerce-automation.json'),
+  () => import('../assets/lottie/sms-automation.json'),
+  () => import('../assets/lottie/tools-integration.json'),
+  () => import('../assets/lottie/landing-pages.json'),
+  () => import('../assets/lottie/lead-generation.json'),
+]
 export function Services() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
   const [hover, setHover] = useState<number | null>(null)
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start start', 'end end'] })
   useMotionValueEvent(scrollYProgress, 'change', v => setActive(serviceProgressToIndex(v, SERVICES.length)))
-  const { ref: screenRef, onScreen } = useOnScreen<HTMLDivElement>(0.05)
-  const perf = useDevicePerformance()
   const shown = hover ?? active
   return (
     <section id="services" aria-label="Services">
@@ -23,8 +28,23 @@ export function Services() {
           <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
             <SectionHeading index="01" label="SERVICES" title={<>Everything retention<br />needs. <span className="text-accent">One team.</span></>} />
             <div className="grid items-center gap-10 lg:grid-cols-2">
-              <div ref={screenRef} className="relative order-2 h-[300px] pb-10 lg:order-1 lg:h-[420px]" data-cursor="EXPLORE">
-                {perf.canUse3D ? <Suspense fallback={<SceneFallback labels={SERVICES.map(s => s.title.toUpperCase())} />}><ServiceCanvas activeIndex={shown} active={onScreen} low={perf.low} /></Suspense> : <SceneFallback labels={SERVICES.map(s => s.title.toUpperCase())} />}
+              <div className="relative order-2 h-[300px] pb-10 lg:order-1 lg:h-[420px]" data-cursor="EXPLORE">
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    key={shown}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 flex items-center justify-center pb-10"
+                  >
+                    <LottieIllustration
+                      loadData={SERVICE_LOTTIE_LOADERS[shown]}
+                      label={`${SERVICES[shown].title} illustration`}
+                      className="h-[228px] w-[228px] sm:h-[248px] sm:w-[248px] lg:h-[328px] lg:w-[328px]"
+                    />
+                  </motion.div>
+                </AnimatePresence>
                 <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink-deep/85 px-4 py-1.5 font-display text-[11px] font-bold tracking-[0.2em] text-white backdrop-blur">SERVICE 0{shown + 1} — {SERVICES[shown].title.toUpperCase()}</div>
               </div>
               <ol className="order-1 flex flex-col lg:order-2">

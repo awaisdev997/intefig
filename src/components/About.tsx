@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { SectionHeading } from './SectionHeading'
-import { AboutScene } from './AboutScene'
+import { LottieIllustration } from './LottieIllustration'
 import { ORBIT_WORDS, TEAM, WHY } from '../data/content'
 import { fadeUp } from '../animations/textAnimations'
 
@@ -30,8 +30,15 @@ export function About() {
         <SectionHeading index="02" label="ABOUT" title={<>Technology fueled<br />by <span className="text-accent">User Experience</span></>} />
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <div className="relative h-[340px] md:h-[440px]" data-cursor="EXPLORE"><AboutScene /></div>
-            {/* Orbit words live in HTML now — always legible, never overlapping the 3D. */}
+            <div className="relative flex h-[340px] items-center justify-center md:h-[440px]" data-cursor="EXPLORE">
+              <div className="pointer-events-none absolute h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(211,224,201,.85),transparent_65%)] blur-2xl md:h-[380px] md:w-[380px]" aria-hidden="true" />
+              <LottieIllustration
+                label="Animated globe with locations connected around the world"
+                loadData={() => import('../assets/lottie/global-network.json')}
+                className="relative h-[280px] w-[280px] md:h-[320px] md:w-[320px]"
+              />
+            </div>
+            {/* Orbit words live in HTML — always legible, never overlapping the animation. */}
             <ul className="mt-4 flex flex-wrap justify-center gap-2" aria-label="Disciplines we combine">
               {ORBIT_WORDS.map((w) => (
                 <li key={w} className="rounded-full border border-sage-700/25 bg-white/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">{w}</li>
