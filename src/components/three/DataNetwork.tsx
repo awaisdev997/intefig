@@ -10,5 +10,5 @@ export function DataNetwork() {
     for (let t = 0; t <= 20; t++) { const u = t / 20; seg.push([(1-u)*(1-u)*a[0]+2*(1-u)*u*mid[0]+u*u*b[0], (1-u)*(1-u)*a[1]+2*(1-u)*u*mid[1]+u*u*b[1], (1-u)*(1-u)*a[2]+2*(1-u)*u*mid[2]+u*u*b[2]]) }
     curves.push(seg)
   }
-  return (<>{curves.map((c, i) => <Line key={i} points={c} color="#C8401B" lineWidth={1.2} transparent opacity={0.45} dashed dashSize={0.18} gapSize={0.1} />)}</>)
+  return (<>{curves.map((c, i) => <Line key={i} points={c} color="#C8401B" lineWidth={1} transparent opacity={0.26} />)}</>)
 }

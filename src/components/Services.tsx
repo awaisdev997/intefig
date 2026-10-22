@@ -23,9 +23,9 @@ export function Services() {
           <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
             <SectionHeading index="01" label="SERVICES" title={<>Everything retention<br />needs. <span className="text-accent">One team.</span></>} />
             <div className="grid items-center gap-10 lg:grid-cols-2">
-              <div ref={screenRef} className="relative order-2 h-[300px] lg:order-1 lg:h-[420px]" data-cursor="EXPLORE">
+              <div ref={screenRef} className="relative order-2 h-[300px] pb-10 lg:order-1 lg:h-[420px]" data-cursor="EXPLORE">
                 {perf.canUse3D ? <Suspense fallback={<SceneFallback labels={SERVICES.map(s => s.title.toUpperCase())} />}><ServiceCanvas activeIndex={shown} active={onScreen} low={perf.low} /></Suspense> : <SceneFallback labels={SERVICES.map(s => s.title.toUpperCase())} />}
-                <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-ink-deep/85 px-4 py-1.5 font-display text-[11px] font-bold tracking-[0.2em] text-white backdrop-blur">SERVICE 0{shown + 1} — {SERVICES[shown].title.toUpperCase()}</div>
+                <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink-deep/85 px-4 py-1.5 font-display text-[11px] font-bold tracking-[0.2em] text-white backdrop-blur">SERVICE 0{shown + 1} — {SERVICES[shown].title.toUpperCase()}</div>
               </div>
               <ol className="order-1 flex flex-col lg:order-2">
                 {SERVICES.map((s, i) => {
