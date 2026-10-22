@@ -1,12 +1,15 @@
 export const CALENDLY = 'https://calendly.com/intefig/15min'
 export const FORMSPREE = 'https://formspree.io/f/mljeollb'
 
-export const NAV = [
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'Work / Results', href: '#work' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
+/** Route-aware nav: plain paths render as NavLink (active state), '/#…' entries
+ *  link back to a section on the home page. */
+export const NAV: { label: string; to: string }[] = [
+  { label: 'Services', to: '/services' },
+  { label: 'Team', to: '/team' },
+  { label: 'About', to: '/#about' },
+  { label: 'Work / Results', to: '/#work' },
+  { label: 'Testimonials', to: '/#testimonials' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 export const SERVICES = [
@@ -30,6 +33,17 @@ export const TEAM: { name: string; role: string; photoKey: string | null }[] = [
   { name: 'Shahzaib', role: 'Graphic Designer', photoKey: 'shahzaib' },
   { name: 'Muhammad Awais', role: 'Software Developer', photoKey: 'muhammadAwais' },
 ]
+
+/** One-line, role-derived bios shown on the Team page (keyed by TEAM name). */
+export const TEAM_BIOS: Record<string, string> = {
+  'Hafiz Hamza': 'Founder of INTEFIG — leads strategy across every client account.',
+  'Muhammad Numan': 'Builds and maintains the websites and stores behind client campaigns.',
+  'Abdur Rafy': 'Designs user experiences for pages, flows and signup journeys.',
+  'Muhammad Sufiyan': 'Builds high-converting landing pages for campaigns and lead capture.',
+  'Husnain Abbas': 'Develops the emails themselves — coded, tested and inbox-ready.',
+  'Shahzaib': 'Creates the graphics and visuals that give campaigns their look.',
+  'Muhammad Awais': 'Develops the software and integrations that connect the stack.',
+}
 
 export const WHY = [
   'Full-service Email, SMS & Web team in-house',

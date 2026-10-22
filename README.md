@@ -31,6 +31,22 @@ npm run build    # tsc --noEmit + production build into dist/
 npm run preview  # preview the production build
 ```
 
+## Routing & deployment
+
+The site is a client-routed SPA (react-router-dom). Routes: `/` (home — the
+original single-page sections), `/services` (detailed services, deep-linkable
+per service as `/services#<slug>`), `/team`, `/contact`, and a branded 404 for
+everything else. In-page home sections are addressed as `/#about`, `/#work`,
+`/#testimonials`.
+
+Because routing happens in the browser, the static host must serve the app
+for deep links. A `public/404.html` shim is included (the spa-github-pages
+pattern, `pathSegmentsToKeep = 0`): unknown paths bounce to `index.html` with
+the path encoded in the query string, and a restore snippet in `index.html`'s
+`<head>` turns it back into the real URL before the app boots. On Vercel or
+Netlify, a rewrite of all paths to `/index.html` does the same job — no shim
+needed there.
+
 ## Architecture
 
 ```

@@ -37,6 +37,11 @@ body{@apply bg-sage-50 text-ink font-body antialiased; overflow-x:hidden}
 .nav-link{position:relative}
 .nav-link::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .nav-link:hover::after,.nav-link:focus-visible::after{transform:scaleX(1)}
+/* Current page (react-router NavLink sets aria-current="page"): ink text + accent underline held open. */
+.nav-link[aria-current="page"]{color:var(--text)}
+.nav-link[aria-current="page"]::after{transform:scaleX(1)}
+/* Faint dot pattern used behind the hero visual. */
+.dot-grid{background-image:radial-gradient(rgba(59,63,66,.13) 1px,transparent 1.4px);background-size:22px 22px}
 .css3d-card{transform:perspective(900px) rotateX(8deg) rotateY(-10deg);transform-style:preserve-3d}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}

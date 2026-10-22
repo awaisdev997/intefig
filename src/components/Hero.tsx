@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight, Star } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Star, Users } from 'lucide-react'
 import { CALENDLY } from '../data/content'
 import { LottieIllustration } from './LottieIllustration'
 import { useMagnetic } from '../hooks/useMagnetic'
@@ -15,16 +16,31 @@ export function Hero() {
   return (
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32" aria-label="Introduction">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(200,64,27,.10),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(122,149,126,.25),transparent_60%)]" />
-      <div className="relative z-0 mx-auto flex h-[372px] w-full max-w-6xl flex-col items-center justify-center px-5 md:h-[468px]">
+      <div className="dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]" aria-hidden="true" />
+      <div className="relative z-0 mx-auto flex h-[360px] w-full max-w-6xl flex-col items-center justify-center px-5 md:h-[440px]">
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(211,224,201,.9),transparent_65%)] blur-2xl md:h-[400px] md:w-[400px]" aria-hidden="true" />
+        {/* Concentric rings behind the envelope — quiet depth, centred on the animation. */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sage-700/15 md:h-[420px] md:w-[420px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sage-700/10 md:h-[540px] md:w-[540px]" aria-hidden="true" />
         <LottieIllustration
           eager
+          playOnce
           label="Animated envelope opening and sending an email"
           loadData={() => import('../assets/lottie/hero-envelope.json')}
-          segment={[0, 128]}
+          segment={[0, 124]}
+          endFrame={40}
           staticFrame={0.25}
           className="relative h-[238px] w-[238px] sm:h-[280px] sm:w-[280px] md:h-[340px] md:w-[340px] [&_svg]:-translate-y-[5%] [&_svg]:scale-[1.3]"
         />
+        {/* Decorative glass stat chips flanking the envelope (real stats repeat in the strip below). */}
+        <div className="animate-float-soft pointer-events-none absolute left-[3%] top-[36%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:left-[6%]" aria-hidden="true">
+          <span className="rounded-full bg-sage-100 p-2 text-accent"><Star size={16} fill="currentColor" /></span>
+          <span><span className="block font-display text-lg font-bold leading-none text-ink">490+</span><span className="mt-1 block text-xs text-ink/60">Five-star reviews</span></span>
+        </div>
+        <div className="animate-float-soft pointer-events-none absolute right-[3%] top-[28%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:right-[6%]" style={{ animationDelay: '1.4s' }} aria-hidden="true">
+          <span className="rounded-full bg-sage-100 p-2 text-sage-700"><Users size={16} /></span>
+          <span><span className="block font-display text-lg font-bold leading-none text-ink">200+</span><span className="mt-1 block text-xs text-ink/60">Brands served</span></span>
+        </div>
         <ul className="relative mt-2 flex flex-wrap items-center justify-center gap-2" aria-hidden="true">
           {HERO_PILLS.map((w, i) => (
             <li
@@ -45,7 +61,7 @@ export function Hero() {
         <motion.p variants={fadeUp} custom={5} className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-ink/70 md:text-lg">We build the email marketing engine behind your revenue — campaigns, automated flows, and list growth that turn subscribers into repeat buyers.</motion.p>
         <motion.div variants={fadeUp} custom={6} className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <a ref={mag.ref} onMouseMove={mag.onMouseMove} onMouseLeave={mag.onMouseLeave} href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary transition-transform">Let's Talk <ArrowUpRight size={17} /></a>
-          <a href="#services" className="btn-ghost">Explore Services</a>
+          <Link to="/services" className="btn-ghost">Explore Services</Link>
         </motion.div>
         <motion.p variants={fadeUp} custom={7} className="mt-7 flex items-center justify-center gap-2 text-sm font-medium text-ink/70">
           <span className="flex text-accent" aria-hidden="true">{[0,1,2,3,4].map(i => <Star key={i} size={15} fill="currentColor" />)}</span>
