@@ -7,7 +7,7 @@ export const FORMSPREE = 'https://formspree.io/f/mljeollb'
 export const NAV: { label: string; to: string }[] = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
-  { label: 'About', to: '/#about' },
+  { label: 'About', to: '/team' },
   { label: 'Work / Results', to: '/#work' },
   { label: 'Testimonials', to: '/#testimonials' },
 ]
