@@ -79,11 +79,11 @@ export default function App() {
   }, [reduced])
   return (
     <div className="noise">
-      <Link to="/#services" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-accent focus:px-5 focus:py-2.5 focus:text-white">Skip to content</Link>
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-accent focus:px-5 focus:py-2.5 focus:text-white">Skip to content</a>
       <Loader /><ScrollProgress /><CustomCursor />
       <ScrollManager lenisRef={lenisRef} />
       <Navbar />
-      <motion.main initial={pageTransition.initial} animate={pageTransition.animate}>
+      <motion.main id="main" tabIndex={-1} initial={pageTransition.initial} animate={pageTransition.animate}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />

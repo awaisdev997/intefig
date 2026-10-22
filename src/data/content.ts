@@ -101,7 +101,6 @@ export const SOCIALS = [
   { label: 'Facebook', href: 'https://www.facebook.com/intefig' },
   { label: 'Instagram', href: 'https://www.instagram.com/intefigofficial/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/intefig/' },
-  { label: 'X', href: 'https://x.com/Intefig_' },
   { label: 'TikTok', href: 'https://www.tiktok.com/@intefig' },
   { label: 'Behance', href: 'https://www.behance.net/intefig' },
   { label: 'Pinterest', href: 'https://www.pinterest.com/intefig/' },

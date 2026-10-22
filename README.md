@@ -112,3 +112,25 @@ Where each animation is used:
 - **Services** — one animation per service in the scroll-pinned panel, crossfading as the active service changes: Email Campaigns → `email-campaigns.json`, eCommerce Automation → `ecommerce-automation.json`, SMS Automation → `sms-automation.json`, Tools Integration → `tools-integration.json`, Landing Pages → `landing-pages.json`, Lead Generation / Surveys → `lead-generation.json`.
 - **About** — `global-network.json` in the framed area above the discipline chips.
 - **Contact** — `contact-message.json` on a light panel beside the form (the ink line-draw needs a light ground on the dark section).
+
+## SEO, metadata & deployment notes
+
+- **Canonical domain** is `https://intefig.com`, defined once in `src/lib/seo.ts`
+  (`SITE_URL`). If the production domain changes, also update the static copies in
+  `index.html`, `public/robots.txt` and `public/sitemap.xml`.
+- **Per-page metadata** (title, description, canonical, Open Graph/Twitter) is set
+  by `src/components/Seo.tsx` from `PAGE_SEO` in `src/lib/seo.ts`. Structured data:
+  Organization + WebSite (static, `index.html`), BreadcrumbList on subpages, and
+  Service entries on `/services` — all matching visible page content.
+- **Sitemap** is the static `public/sitemap.xml` (4 canonical URLs). Update it when
+  routes are added or removed. `robots.txt` references it.
+- **Social image:** meta tags point to `https://intefig.com/og-image.png`
+  (1200×630). The design source is `public/og-image.svg`; the rendered PNG must be
+  placed at `public/og-image.png` in the deployed build (binary assets are added
+  outside the text snapshot flow used for source pushes).
+- **Security headers** live in `public/_headers` (honoured by Netlify/Cloudflare
+  Pages; GitHub Pages ignores the file — configure headers at the host there).
+- **Analytics / Search Console:** not yet connected. To add: verify the domain in
+  Google Search Console (DNS TXT), submit `/sitemap.xml`, and add an analytics
+  tag (e.g. GA4 or Plausible) to `index.html` with the property ID — no IDs are
+  hardcoded today.

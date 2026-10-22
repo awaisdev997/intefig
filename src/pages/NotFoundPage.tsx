@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { fadeUp } from '../animations/textAnimations'
+import { Seo } from '../components/Seo'
 
 /** Branded 404 for any unmatched route. */
 export function NotFoundPage() {
   return (
+    <>
+      <Seo title="Page Not Found | INTEFIG" description="The page you’re looking for doesn’t exist. Head back to the INTEFIG homepage." path="/404" noindex />
     <section className="relative overflow-hidden pb-28 pt-40 md:pt-48" aria-label="Page not found">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(200,64,27,.08),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(122,149,126,.22),transparent_60%)]" aria-hidden="true" />
       <motion.div initial="hidden" animate="show" className="relative mx-auto max-w-3xl px-5 text-center md:px-8">
@@ -18,5 +21,6 @@ export function NotFoundPage() {
         </motion.div>
       </motion.div>
     </section>
+    </>
   )
 }

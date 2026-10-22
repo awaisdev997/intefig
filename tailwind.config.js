@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        sage: { 50: '#EBF5DD', 100: '#D3E0C9', 300: '#9AB395', 500: '#88A286', 700: '#7A957E' },
+        sage: { 50: '#EBF5DD', 100: '#D3E0C9', 300: '#9AB395', 500: '#88A286', 700: '#7A957E', 800: '#56705C' },
         ink: { DEFAULT: '#3B3F42', deep: '#232628' },
         accent: { DEFAULT: '#C8401B', hover: '#A83315' },
       },

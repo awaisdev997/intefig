@@ -9,6 +9,12 @@ import { LogoLockup } from './Logo'
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open ])
   const mag = useMagnetic<HTMLAnchorElement>(0.3)
   useEffect(() => { const fn = () => setScrolled(window.scrollY > 40); fn(); window.addEventListener('scroll', fn, { passive: true }); return () => window.removeEventListener('scroll', fn) }, [])
   useEffect(() => { document.body.style.overflow = open ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [open ])
@@ -20,12 +26,12 @@ export function Navbar() {
           <ul className="hidden items-center gap-8 lg:flex">{NAV.map(n => <li key={n.to}><NavItemLink entry={n} className="nav-link font-display text-sm font-medium text-ink/85 hover:text-ink" /></li>)}</ul>
           <div className="flex items-center gap-3">
             <a ref={mag.ref} onMouseMove={mag.onMouseMove} onMouseLeave={mag.onMouseLeave} href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary hidden !px-6 !py-2.5 transition-transform sm:inline-flex">Let's Talk <ArrowUpRight size={16} /></a>
-            <button className="rounded-full border border-ink/15 bg-white/60 p-2.5 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu size={20} /></button>
+            <button className="rounded-full border border-ink/15 bg-white/60 p-2.5 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu"><Menu size={20} /></button>
           </div>
         </nav>
       </header>
       <AnimatePresence>{open && (
-        <motion.div initial={{ opacity: 0, clipPath: 'circle(0% at 92% 6%)' }} animate={{ opacity: 1, clipPath: 'circle(150% at 92% 6%)' }} exit={{ opacity: 0, clipPath: 'circle(0% at 92% 6%)' }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} className="fixed inset-0 z-[96] flex flex-col bg-ink-deep px-6 py-6" role="dialog" aria-modal="true" aria-label="Menu">
+        <motion.div initial={{ opacity: 0, clipPath: 'circle(0% at 92% 6%)' }} animate={{ opacity: 1, clipPath: 'circle(150% at 92% 6%)' }} exit={{ opacity: 0, clipPath: 'circle(0% at 92% 6%)' }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }} id="mobile-menu" className="fixed inset-0 z-[96] flex flex-col bg-ink-deep px-6 py-6" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="flex items-center justify-between"><Link to="/" onClick={() => setOpen(false)} aria-label="INTEFIG — back to home" className="inline-flex shrink-0 items-center"><LogoLockup variant="dark" idSuffix="menu" markClassName="h-10 w-10" textClassName="text-[22px]" /></Link><button onClick={() => setOpen(false)} aria-label="Close menu" className="rounded-full border border-white/25 p-2.5 text-white"><X size={20} /></button></div>
           <ul className="mt-14 flex flex-col gap-2">{NAV.map((n, i) => (<motion.li key={n.to} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 + i * 0.07 }}><NavItemLink entry={n} onClick={() => setOpen(false)} className="font-display text-4xl font-bold text-white hover:text-sage-300" activeClassName="!text-sage-300" /></motion.li>))}</ul>
           <motion.a initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary mt-auto w-fit">Let's Talk <ArrowUpRight size={16} /></motion.a>

@@ -1,4 +1,7 @@
 import { PageHeader } from '../components/PageHeader'
+import { Seo, breadcrumbLd } from '../components/Seo'
+import { PAGE_SEO } from '../lib/seo'
+const TEAM_CRUMBS = [{ label: 'Home', to: '/' }, { label: 'Team' }]
 import { FounderCard, TeamGrid } from '../components/Team'
 import { CtaBand } from '../components/CtaBand'
 
@@ -6,7 +9,9 @@ import { CtaBand } from '../components/CtaBand'
 export function TeamPage() {
   return (
     <>
+      <Seo {...PAGE_SEO.team} jsonLd={breadcrumbLd(TEAM_CRUMBS)} />
       <PageHeader
+        crumbs={TEAM_CRUMBS}
         eyebrow="OUR TEAM"
         title={<>The people behind the <span className="text-accent">inbox results</span></>}
         intro="A full-service email, SMS & web team in-house — strategy, design, development and automation under one roof."
