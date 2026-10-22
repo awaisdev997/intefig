@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { Check } from 'lucide-react'
 import { SectionHeading } from './SectionHeading'
 import { LottieIllustration } from './LottieIllustration'
-import { FounderCard, TeamGrid } from './Team'
+import { FounderCard } from './Team'
 import { ORBIT_WORDS, WHY } from '../data/content'
 import { fadeUp } from '../animations/textAnimations'
 
@@ -35,8 +37,10 @@ export function About() {
             <div className="mt-9"><FounderCard /></div>
           </motion.div>
         </div>
-        <div className="mt-16">
-          <TeamGrid />
+        <div className="mt-14 text-center">
+          <Link to="/team" className="group inline-flex items-center gap-2 font-display text-sm font-semibold text-ink transition hover:text-accent">
+            Meet the whole team <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 /**
  * Renders one nav entry: plain routes (/services, /team, /contact) use NavLink
  * so the current page gets aria-current="page" (styled via CSS); home-section
- * entries ('/#about' …) use a plain router Link. The Home entry ('/') passes
+ * entries ('/#work' …) use a plain router Link. The Home entry ('/') passes
  * `end` so it is only active on the root route, never as a prefix match.
  */
 export function NavItemLink({
