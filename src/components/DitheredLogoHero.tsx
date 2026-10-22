@@ -1,36 +1,33 @@
 import { Component, lazy, Suspense, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useReducedMotion } from '../hooks/useReducedMotion'
-import { LOGO_DITHER, LOGO_DITHER_ASPECT } from '../assets/logoData'
-import { LogoLockup } from './Logo'
+import { LOGO_WHITE as logoWhite } from '../assets/logoData'
+import { LOGO_INK as logoInk } from '../assets/logoData'
 
 /**
- * Hero presentation of the INTEFIG logo (symbol + wordmark, matching the
- * owner's app-icon identity) as a Componentry "Dithered Logo" particle
- * field (canvas 2D, lazy-loaded so it never blocks first paint).
+ * Hero presentation of the original INTEFIG logo as a Componentry
+ * "Dithered Logo" particle field (canvas 2D, lazy-loaded so it never
+ * blocks first paint).
  *
- * Asset notes: the dither source (src/assets/logoData.ts) is the lockup
- * rendered as a white silhouette on transparency; its bright pixels
- * (luma 255 inside the alpha silhouette) are used with `invert={false}`,
- * filling the artwork with full-density ink particles.
+ * Asset notes (verified against the vendored component's sampling code):
+ * the white logo (src/assets/logoData.ts) is the original artwork with
+ * RGB set to white; its bright pixels (luma 255 inside the alpha
+ * silhouette) are used with `invert={false}`, filling the artwork with
+ * full-density particles.
  *
- * Fallbacks — all render the static vector lockup at the same stage size:
+ * Fallbacks — all render the static ink logo at the same size:
  * - prefers-reduced-motion (checked synchronously on first render, so no
  *   canvas is ever mounted in that case),
  * - canvas 2D unsupported,
  * - the lazy chunk or the canvas component erroring.
- * While the chunk loads, the static lockup shows as the Suspense fallback.
+ * While the chunk loads, the static logo shows as the Suspense fallback.
  */
 
 const DitheredLogo = lazy(() => import('./ui/dithered-logo'))
 
-function StaticLockup() {
-  return (
-    <div className="flex h-full w-full items-center justify-center" role="img" aria-label="INTEFIG logo">
-      <LogoLockup variant="light" idSuffix="hero" markClassName="h-14 w-14 md:h-[4.5rem] md:w-[4.5rem]" textClassName="text-[2.6rem] md:text-[3.4rem]" />
-    </div>
-  )
-}
+/** 813×251 artwork aspect; also the `scale` that makes the particle field
+ *  fill a stage with this aspect (field size = min(stageW, stageH) × scale). */
+const LOGO_ASPECT = 813 / 251
 
 /** Swallows canvas-component errors so a broken effect can't crash the hero. */
 class CanvasBoundary extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
@@ -67,7 +64,7 @@ export function DitheredLogoHero({ className = '' }: { className?: string }) {
   if (initialReduced || hookReduced || !canvasOk || failed) {
     return (
       <div className={className}>
-        <StaticLockup />
+        <img src={logoInk} alt="INTEFIG logo" className="h-full w-full object-contain" width={813} height={251} />
       </div>
     )
   }
@@ -77,14 +74,16 @@ export function DitheredLogoHero({ className = '' }: { className?: string }) {
       <span className="sr-only">INTEFIG</span>
       <div aria-hidden="true" className="h-full w-full">
         <CanvasBoundary onError={() => setFailed(true)}>
-          <Suspense fallback={<StaticLockup />}>
+          <Suspense
+            fallback={<img src={logoInk} alt="" className="h-full w-full object-contain" width={813} height={251} />}
+          >
             <DitheredLogo
-              imageSrc={LOGO_DITHER}
+              imageSrc={logoWhite}
               particleColor="#3B3F42"
               invert={false}
               gridSize={300}
               blur={2}
-              scale={LOGO_DITHER_ASPECT}
+              scale={LOGO_ASPECT}
               className="h-full w-full"
               style={{ width: '100%', height: '100%' }}
             />

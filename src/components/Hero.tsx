@@ -21,7 +21,7 @@ export function Hero() {
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(211,224,201,.9),transparent_65%)] blur-2xl md:h-[320px] md:w-[560px]" aria-hidden="true" />
         {/* The original INTEFIG logo as an interactive dithered-particle field
             (static ink logo under reduced motion / no canvas — see DitheredLogoHero). */}
-        <DitheredLogoHero className="relative w-[min(620px,88vw)] aspect-[1602/417]" />
+        <DitheredLogoHero className="relative w-[min(620px,88vw)] aspect-[813/251]" />
         {/* Decorative glass stat chips flanking the logo (real stats repeat in the strip below). */}
         <div className="animate-float-soft pointer-events-none absolute left-[3%] top-[32%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:left-[6%]" aria-hidden="true">
           <span className="rounded-full bg-sage-100 p-2 text-accent"><Star size={16} fill="currentColor" /></span>
