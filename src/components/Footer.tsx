@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import { NAV, SERVICES, SOCIALS, CONTACT, CALENDLY } from '../data/content'
+import { FOOTER_NAV, SERVICES, SOCIALS, CONTACT, CALENDLY } from '../data/content'
 import { SERVICE_SLUGS } from '../data/serviceDetails'
 import { NavItemLink } from './NavItemLink'
+import { LOGO_WHITE as logoWhite } from '../assets/logoData'
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-sage-700 pt-20 text-white" aria-label="Footer">
@@ -11,12 +12,12 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 pb-10 md:px-8">
         <div className="grid gap-12 pb-14 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="font-display text-3xl font-extrabold tracking-tight">INTEFIG<span className="text-accent">.</span></p>
+            <img src={logoWhite} alt="INTEFIG logo" className="h-12 w-auto md:h-14" width={813} height={251} />
             <p className="eyebrow mt-3 !text-[10px] text-sage-100">ALL ABOUT EMAIL</p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">Retention. Automated. Delivered. Email, SMS and automation for brands that want repeat buyers.</p>
             <a href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary mt-6 !px-6 !py-2.5">Let's Talk <ArrowUpRight size={15} /></a>
           </div>
-          <nav aria-label="Footer navigation"><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">NAVIGATION</h3><ul className="space-y-3 text-sm">{NAV.map(n => <li key={n.to}><NavItemLink entry={n} className="text-white/80 transition hover:text-white hover:underline underline-offset-4" activeClassName="text-white underline" /></li>)}</ul></nav>
+          <nav aria-label="Footer navigation"><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">NAVIGATION</h3><ul className="space-y-3 text-sm">{FOOTER_NAV.map(n => <li key={n.to}><NavItemLink entry={n} className="text-white/80 transition hover:text-white hover:underline underline-offset-4" activeClassName="text-white underline" /></li>)}</ul></nav>
           <div><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">SERVICES</h3><ul className="space-y-3 text-sm">{SERVICES.map((s, i) => <li key={s.title}><Link to={`/services#${SERVICE_SLUGS[i]}`} className="text-white/80 transition hover:text-white hover:underline underline-offset-4">{s.title}</Link></li>)}</ul></div>
           <div>
             <h3 className="eyebrow mb-5 !text-[10px] text-sage-100">CONTACT</h3>

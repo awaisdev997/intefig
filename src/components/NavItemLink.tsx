@@ -1,9 +1,10 @@
 import { Link, NavLink } from 'react-router-dom'
 
 /**
- * Renders one NAV entry: plain routes (/services, /team, /contact) use NavLink
+ * Renders one nav entry: plain routes (/services, /team, /contact) use NavLink
  * so the current page gets aria-current="page" (styled via CSS); home-section
- * entries ('/#about' …) use a plain router Link.
+ * entries ('/#about' …) use a plain router Link. The Home entry ('/') passes
+ * `end` so it is only active on the root route, never as a prefix match.
  */
 export function NavItemLink({
   entry,
@@ -24,7 +25,7 @@ export function NavItemLink({
     )
   }
   return (
-    <NavLink to={entry.to} className={({ isActive }) => `${className}${isActive ? ` ${activeClassName}` : ''}`} onClick={onClick}>
+    <NavLink to={entry.to} end={entry.to === '/'} className={({ isActive }) => `${className}${isActive ? ` ${activeClassName}` : ''}`} onClick={onClick}>
       {entry.label}
     </NavLink>
   )
