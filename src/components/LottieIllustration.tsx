@@ -11,7 +11,8 @@ import { useReducedMotion } from '../hooks/useReducedMotion'
  * - The JSON itself is fetched via `loadData` only when the component comes
  *   within 300px of the viewport (unless `eager`, used for the hero).
  * - Playback runs only while the component is actually on screen; it pauses
- *   when scrolled away.
+ *   when scrolled away. With `playOnce`, it instead plays a single time on
+ *   first visibility and parks on its final frame.
  * - Under prefers-reduced-motion nothing autoplays: a single representative
  *   frame (~55% through the animation) is shown instead.
  * - Any failure (JSON fetch, player chunk, player error) renders an empty,
@@ -47,11 +48,20 @@ export interface LottieIllustrationProps {
   segment?: [number, number]
   /** Frame (0–1) parked on under reduced motion. Default 0.55. */
   staticFrame?: number
+  /**
+   * Play exactly once — the first time the animation becomes visible — then
+   * park on the final frame of the segment. A ref guard means re-renders,
+   * visibility toggles and scrolling can never restart it.
+   */
+  playOnce?: boolean
+  /** With playOnce: frame to rest on after the single play completes (defaults to the segment end). */
+  endFrame?: number
 }
 
-export function LottieIllustration({ loadData, className = '', eager = false, speed = 1, label, segment, staticFrame = 0.55 }: LottieIllustrationProps) {
+export function LottieIllustration({ loadData, className = '', eager = false, speed = 1, label, segment, staticFrame = 0.55, playOnce = false, endFrame }: LottieIllustrationProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<LottieRefCurrentProps | null>(null)
+  const playedRef = useRef(false)
   const reduced = useReducedMotion()
   const [near, setNear] = useState(eager)
   const [visible, setVisible] = useState(false)
@@ -110,13 +120,32 @@ export function LottieIllustration({ loadData, className = '', eager = false, sp
     if (reduced) {
       const total = player.getDuration(true) ?? 0
       player.goToAndStop(Math.round(total * staticFrame), true)
+    } else if (playOnce) {
+      // Start exactly once, the first time the animation is on screen; from
+      // then on, visibility changes and re-renders must never touch playback.
+      if (!playedRef.current && visible) {
+        playedRef.current = true
+        if (segment) player.playSegments(segment, true)
+        else player.play()
+      }
     } else if (visible) {
       if (segment) player.playSegments(segment, true)
       else player.play()
     } else {
       player.pause()
     }
-  }, [ready, visible, reduced, speed, segment, staticFrame])
+  }, [ready, visible, reduced, speed, segment, staticFrame, playOnce])
+
+  // With looping off, lottie-web already stops on the segment's last frame;
+  // park explicitly so the final state can never reset to frame 0.
+  const handleComplete = () => {
+    if (!playOnce) return
+    const player = playerRef.current
+    if (!player) return
+    const total = player.getDuration(true) ?? 0
+    const end = endFrame ?? (segment ? segment[1] : total - 1)
+    if (end > 0) player.goToAndStop(end, true)
+  }
 
   const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true }
 
@@ -128,10 +157,11 @@ export function LottieIllustration({ loadData, className = '', eager = false, sp
             <LottiePlayer
               lottieRef={playerRef}
               animationData={data}
-              autoplay={!reduced}
-              loop
+              autoplay={!reduced && !playOnce}
+              loop={!playOnce}
               onDOMLoaded={() => setReady(true)}
               onDataFailed={() => setFailed(true)}
+              onComplete={handleComplete}
               style={{ width: '100%', height: '100%' }}
             />
           </Suspense>

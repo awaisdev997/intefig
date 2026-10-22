@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { NAV, SERVICES, SOCIALS, CONTACT, CALENDLY } from '../data/content'
+import { SERVICE_SLUGS } from '../data/serviceDetails'
+import { NavItemLink } from './NavItemLink'
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-sage-700 pt-20 text-white" aria-label="Footer">
@@ -13,8 +16,8 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">Retention. Automated. Delivered. Email, SMS and automation for brands that want repeat buyers.</p>
             <a href={CALENDLY} target="_blank" rel="noreferrer" className="btn-primary mt-6 !px-6 !py-2.5">Let's Talk <ArrowUpRight size={15} /></a>
           </div>
-          <nav aria-label="Footer navigation"><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">NAVIGATION</h3><ul className="space-y-3 text-sm">{NAV.map(n => <li key={n.href}><a href={n.href} className="text-white/80 transition hover:text-white hover:underline underline-offset-4">{n.label}</a></li>)}</ul></nav>
-          <div><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">SERVICES</h3><ul className="space-y-3 text-sm">{SERVICES.map(s => <li key={s.title}><a href="#services" className="text-white/80 transition hover:text-white hover:underline underline-offset-4">{s.title}</a></li>)}</ul></div>
+          <nav aria-label="Footer navigation"><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">NAVIGATION</h3><ul className="space-y-3 text-sm">{NAV.map(n => <li key={n.to}><NavItemLink entry={n} className="text-white/80 transition hover:text-white hover:underline underline-offset-4" activeClassName="text-white underline" /></li>)}</ul></nav>
+          <div><h3 className="eyebrow mb-5 !text-[10px] text-sage-100">SERVICES</h3><ul className="space-y-3 text-sm">{SERVICES.map((s, i) => <li key={s.title}><Link to={`/services#${SERVICE_SLUGS[i]}`} className="text-white/80 transition hover:text-white hover:underline underline-offset-4">{s.title}</Link></li>)}</ul></div>
           <div>
             <h3 className="eyebrow mb-5 !text-[10px] text-sage-100">CONTACT</h3>
             <ul className="space-y-3 text-sm text-white/80">
