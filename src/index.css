@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#EBF5DD; --bg-2:#D3E0C9; --accent:#C8401B; --accent-hover:#A83315;
+  --text:#3B3F42; --muted:rgba(59,63,66,.68); --border:rgba(59,63,66,.14);
+  --surface:#FFFFFF; --glow:rgba(200,64,27,.35); --sage-700:#7A957E; --ink-deep:#232628;
+}
+*{-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{@apply bg-sage-50 text-ink font-body antialiased; overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#9AB395;border-radius:99px;border:2px solid var(--bg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.font-display{font-family:Sora,system-ui,sans-serif}
+.eyebrow{@apply font-display text-[11px] md:text-xs font-semibold tracking-[0.28em] uppercase}
+.btn-primary{@apply inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-display text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:bg-accent-hover hover:-translate-y-0.5 active:scale-95}
+.btn-ghost{@apply inline-flex items-center gap-2 rounded-full border border-ink/20 px-7 py-3.5 font-display text-sm font-semibold text-ink transition-all duration-300 hover:border-ink hover:-translate-y-0.5 active:scale-95 bg-white/40 backdrop-blur}
+.noise::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:70;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.animate-marquee{animation:marquee 36s linear infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.animate-scroll-line{animation:scrollLine 2.2s ease-in-out infinite}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.animate-spin-slow{animation:spinSlow 24s linear infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.animate-float{animation:floatY 6s ease-in-out infinite}
+@keyframes geoMove{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(40px,-30px) rotate(12deg)}}
+.footer-geo{animation:geoMove 14s ease-in-out infinite alternate}
+.nav-link{position:relative}
+.nav-link::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.nav-link:hover::after,.nav-link:focus-visible::after{transform:scaleX(1)}
+.css3d-card{transform:perspective(900px) rotateX(8deg) rotateY(-10deg);transform-style:preserve-3d}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+@media (pointer:coarse){ .custom-cursor{display:none!important} }
