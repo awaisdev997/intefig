@@ -20,14 +20,15 @@ export const SERVICES = [
 
 export const ORBIT_WORDS = ['EMAIL', 'CREATIVE', 'DATA', 'AUTOMATION', 'STRATEGY', 'RESULTS']
 
-export const TEAM = [
-  { name: 'Hafiz Hamza', role: 'Email Strategist' },
-  { name: 'Muhammad Numan', role: 'Web Developer' },
-  { name: 'Abdur Rafy', role: 'UX Designer' },
-  { name: 'Muhammad Sufiyan', role: 'Landing Page Builder' },
-  { name: 'Husnain Abbas', role: 'Email Developer' },
-  { name: 'Shahzaib', role: 'Graphic Designer' },
-  { name: 'Muhammad Awais', role: 'Software Developer' },
+/** photoKey maps to src/data/teamPhotos.ts (TEAM_PHOTOS). null = no verified photo — UI uses a monogram. */
+export const TEAM: { name: string; role: string; photoKey: string | null }[] = [
+  { name: 'Hafiz Hamza', role: 'Email Strategist', photoKey: 'hafizHamza' },
+  { name: 'Muhammad Numan', role: 'Web Developer', photoKey: 'muhammadNuman' },
+  { name: 'Abdur Rafy', role: 'UX Designer', photoKey: null },
+  { name: 'Muhammad Sufiyan', role: 'Landing Page Builder', photoKey: 'muhammadSufiyan' },
+  { name: 'Husnain Abbas', role: 'Email Developer', photoKey: 'husnainAbbas' },
+  { name: 'Shahzaib', role: 'Graphic Designer', photoKey: 'shahzaib' },
+  { name: 'Muhammad Awais', role: 'Software Developer', photoKey: 'muhammadAwais' },
 ]
 
 export const WHY = [

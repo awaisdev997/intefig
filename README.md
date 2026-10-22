@@ -64,3 +64,10 @@ src/
 - If WebGL is unavailable, tasteful CSS-3D/static fallbacks render instead of any Canvas.
 - Custom cursor only appears on fine-pointer devices.
 - Contact and newsletter forms POST to the existing Formspree endpoint with success/error states.
+
+## Refinement pass — 2026-10-22
+
+- Hero node labels now render as 3D text on the card faces (per-label card widths), using Sora Bold bundled locally (`src/data/labelFont.ts`) instead of a runtime CDN font; each label is isolated in its own `Suspense` so a label can never blank the scene. Node motion was calmed (bob 0.055, sway ≤0.05 rad) and the camera reframes on narrow canvases (`ResponsiveFraming`) so edge cards never clip on mobile.
+- Services scene rebuilt: the rotating slab carousel is now a constant central "UI card" whose accent bar lerps to the active service colour, with five satellite nodes damped between per-service layouts and a thin ellipse ring that no longer intersects geometry.
+- About/Contact cores: faceted flat-shaded icosahedra replaced with smooth physical-material spheres (clearcoat, subtle wireframe shell on About); orbit words moved out of the 3D scene into an accessible HTML chip row; lighting softened (hemisphere fill, point intensities 12/10 → 6/5).
+- Team section now uses the real portraits published on intefig.com (`src/data/teamPhotos.ts`, WebP, lazy-loaded as a separate chunk), matched to each member by the source site's own team ordering; the founder card uses the site's founder portrait. One exception: the photo served in Abdur Rafy's slot on the source site is a generic stock image that cannot be verified as him, so his card intentionally uses a monogram placeholder until a real photo is provided.
