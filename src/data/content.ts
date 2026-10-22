@@ -1,14 +1,22 @@
 export const CALENDLY = 'https://calendly.com/intefig/15min'
 export const FORMSPREE = 'https://formspree.io/f/mljeollb'
 
-/** Route-aware nav: plain paths render as NavLink (active state), '/#…' entries
- *  link back to a section on the home page. */
+/** Route-aware navbar nav: plain paths render as NavLink (active state),
+ *  '/#…' entries link back to a section on the home page. Team and Contact
+ *  live in the footer (FOOTER_NAV) — their routes/pages still exist. */
 export const NAV: { label: string; to: string }[] = [
+  { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
-  { label: 'Team', to: '/team' },
   { label: 'About', to: '/#about' },
   { label: 'Work / Results', to: '/#work' },
   { label: 'Testimonials', to: '/#testimonials' },
+]
+
+/** Footer navigation column: every main route, including Team and Contact. */
+export const FOOTER_NAV: { label: string; to: string }[] = [
+  { label: 'Home', to: '/' },
+  { label: 'Services', to: '/services' },
+  { label: 'Team', to: '/team' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -93,7 +101,6 @@ export const SOCIALS = [
   { label: 'Facebook', href: 'https://www.facebook.com/intefig' },
   { label: 'Instagram', href: 'https://www.instagram.com/intefigofficial/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/intefig/' },
-  { label: 'X', href: 'https://x.com/Intefig_' },
   { label: 'TikTok', href: 'https://www.tiktok.com/@intefig' },
   { label: 'Behance', href: 'https://www.behance.net/intefig' },
   { label: 'Pinterest', href: 'https://www.pinterest.com/intefig/' },

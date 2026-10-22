@@ -8,11 +8,14 @@ import { Results } from '../components/Results'
 import { Process } from '../components/Process'
 import { Contact } from '../components/Contact'
 import { Newsletter } from '../components/Newsletter'
+import { Seo } from '../components/Seo'
+import { PAGE_SEO } from '../lib/seo'
 
 /** The original single-page composition, unchanged and in its original order. */
 export function HomePage() {
   return (
     <>
+      <Seo {...PAGE_SEO.home} />
       <Hero />
       <Services />
       <About />

@@ -1,4 +1,7 @@
 import { ArrowUpRight, Globe, Mail, MapPin, Phone } from 'lucide-react'
+import { Seo, breadcrumbLd } from '../components/Seo'
+import { PAGE_SEO } from '../lib/seo'
+const CONTACT_CRUMBS = [{ label: 'Home', to: '/' }, { label: 'Contact' }]
 import { PageHeader } from '../components/PageHeader'
 import { ContactForm } from '../components/ContactForm'
 import { CALENDLY, CONTACT, SOCIALS } from '../data/content'
@@ -14,7 +17,9 @@ export function ContactPage() {
   ]
   return (
     <>
+      <Seo {...PAGE_SEO.contact} jsonLd={breadcrumbLd(CONTACT_CRUMBS)} />
       <PageHeader
+        crumbs={CONTACT_CRUMBS}
         eyebrow="CONTACT"
         title={<>Let&apos;s build your <span className="text-accent">retention engine</span></>}
         intro="Tell us where your email program is today and where you want it to go — we'll reply with honest next steps, no obligation."

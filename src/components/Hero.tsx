@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowDown, ArrowUpRight, Star, Users } from 'lucide-react'
 import { CALENDLY } from '../data/content'
-import { LottieIllustration } from './LottieIllustration'
+import { DitheredLogoHero } from './DitheredLogoHero'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { heroContainer } from '../animations/heroAnimations'
 import { fadeUp } from '../animations/textAnimations'
@@ -17,27 +17,17 @@ export function Hero() {
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32" aria-label="Introduction">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(200,64,27,.10),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(122,149,126,.25),transparent_60%)]" />
       <div className="dot-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]" aria-hidden="true" />
-      <div className="relative z-0 mx-auto flex h-[360px] w-full max-w-6xl flex-col items-center justify-center px-5 md:h-[440px]">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(211,224,201,.9),transparent_65%)] blur-2xl md:h-[400px] md:w-[400px]" aria-hidden="true" />
-        {/* Concentric rings behind the envelope — quiet depth, centred on the animation. */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sage-700/15 md:h-[420px] md:w-[420px]" aria-hidden="true" />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sage-700/10 md:h-[540px] md:w-[540px]" aria-hidden="true" />
-        <LottieIllustration
-          eager
-          playOnce
-          label="Animated envelope opening and sending an email"
-          loadData={() => import('../assets/lottie/hero-envelope.json')}
-          segment={[0, 124]}
-          endFrame={40}
-          staticFrame={0.25}
-          className="relative h-[238px] w-[238px] sm:h-[280px] sm:w-[280px] md:h-[340px] md:w-[340px] [&_svg]:-translate-y-[5%] [&_svg]:scale-[1.3]"
-        />
-        {/* Decorative glass stat chips flanking the envelope (real stats repeat in the strip below). */}
-        <div className="animate-float-soft pointer-events-none absolute left-[3%] top-[36%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:left-[6%]" aria-hidden="true">
+      <div className="relative z-0 mx-auto flex h-[300px] w-full max-w-6xl flex-col items-center justify-center px-5 md:h-[360px]">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(211,224,201,.9),transparent_65%)] blur-2xl md:h-[320px] md:w-[560px]" aria-hidden="true" />
+        {/* The original INTEFIG logo as an interactive dithered-particle field
+            (static ink logo under reduced motion / no canvas — see DitheredLogoHero). */}
+        <DitheredLogoHero className="relative w-[min(620px,88vw)] aspect-[1602/417]" />
+        {/* Decorative glass stat chips flanking the logo (real stats repeat in the strip below). */}
+        <div className="animate-float-soft pointer-events-none absolute left-[3%] top-[32%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:left-[6%]" aria-hidden="true">
           <span className="rounded-full bg-sage-100 p-2 text-accent"><Star size={16} fill="currentColor" /></span>
           <span><span className="block font-display text-lg font-bold leading-none text-ink">490+</span><span className="mt-1 block text-xs text-ink/60">Five-star reviews</span></span>
         </div>
-        <div className="animate-float-soft pointer-events-none absolute right-[3%] top-[28%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:right-[6%]" style={{ animationDelay: '1.4s' }} aria-hidden="true">
+        <div className="animate-float-soft pointer-events-none absolute right-[3%] top-[24%] hidden items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 shadow-card ring-1 ring-ink/5 backdrop-blur lg:flex xl:right-[6%]" style={{ animationDelay: '1.4s' }} aria-hidden="true">
           <span className="rounded-full bg-sage-100 p-2 text-sage-700"><Users size={16} /></span>
           <span><span className="block font-display text-lg font-bold leading-none text-ink">200+</span><span className="mt-1 block text-xs text-ink/60">Brands served</span></span>
         </div>

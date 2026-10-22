@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom'
+import { Seo, breadcrumbLd } from '../components/Seo'
+import { PAGE_SEO } from '../lib/seo'
+const SERVICE_CRUMBS = [{ label: 'Home', to: '/' }, { label: 'Services' }]
 import { motion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import { PageHeader } from '../components/PageHeader'
@@ -14,7 +17,9 @@ import { fadeUp } from '../animations/textAnimations'
 export function ServicesPage() {
   return (
     <>
+      <Seo {...PAGE_SEO.services} jsonLd={[breadcrumbLd(SERVICE_CRUMBS), ...SERVICES.map((sv) => ({ '@context': 'https://schema.org', '@type': 'Service', name: sv.title, description: sv.desc, provider: { '@type': 'Organization', name: 'INTEFIG', url: 'https://intefig.com' }, areaServed: 'Worldwide' }))]} />
       <PageHeader
+        crumbs={SERVICE_CRUMBS}
         eyebrow="OUR SERVICES"
         title={<>Everything retention needs, <span className="text-accent">in detail.</span></>}
         intro="Six services, one goal: turning subscribers into repeat buyers. Here's exactly what each one covers — and what it does for your brand."

@@ -2,6 +2,7 @@ import { Component, lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { LottieRefCurrentProps } from 'lottie-react'
 import { useReducedMotion } from '../hooks/useReducedMotion'
+import { Skeleton } from './Skeleton'
 
 /**
  * Reusable, performance-first Lottie illustration.
@@ -23,10 +24,13 @@ import { useReducedMotion } from '../hooks/useReducedMotion'
 const LottiePlayer = lazy(() => import('lottie-react'))
 
 /** Swallows player load/render errors so a broken animation can't crash a section. */
-class PlayerBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+class PlayerBoundary extends Component<{ children: ReactNode; onError?: () => void }, { failed: boolean }> {
   state = { failed: false }
   static getDerivedStateFromError() {
     return { failed: true }
+  }
+  componentDidCatch() {
+    this.props.onError?.()
   }
   render() {
     return this.state.failed ? null : this.props.children
@@ -150,9 +154,13 @@ export function LottieIllustration({ loadData, className = '', eager = false, sp
   const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true }
 
   return (
-    <div ref={rootRef} className={className} {...a11y}>
+    <div ref={rootRef} className={`relative ${className}`} {...a11y}>
+      {/* Genuine load window (JSON fetch + player chunk): a skeleton fills the
+          reserved box so nothing shifts when the animation swaps in. It is
+          gone once the player is ready, and also on failure (empty box). */}
+      {!ready && !failed && <Skeleton className="absolute inset-0 z-10 h-full w-full" />}
       {data && !failed && (
-        <PlayerBoundary>
+        <PlayerBoundary onError={() => setFailed(true)}>
           <Suspense fallback={<div className="h-full w-full" />}>
             <LottiePlayer
               lottieRef={playerRef}
