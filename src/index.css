@@ -30,6 +30,8 @@ body{@apply bg-sage-50 text-ink font-body antialiased; overflow-x:hidden}
 .animate-spin-slow{animation:spinSlow 24s linear infinite}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 .animate-float{animation:floatY 6s ease-in-out infinite}
+@keyframes floatSoft{from{transform:translateY(4px)}to{transform:translateY(-4px)}}
+.animate-float-soft{animation:floatSoft 6s ease-in-out infinite alternate}
 @keyframes geoMove{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(40px,-30px) rotate(12deg)}}
 .footer-geo{animation:geoMove 14s ease-in-out infinite alternate}
 .nav-link{position:relative}
@@ -38,5 +40,6 @@ body{@apply bg-sage-50 text-ink font-body antialiased; overflow-x:hidden}
 .css3d-card{transform:perspective(900px) rotateX(8deg) rotateY(-10deg);transform-style:preserve-3d}
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .animate-float-soft{animation:none!important}
 }
 @media (pointer:coarse){ .custom-cursor{display:none!important} }

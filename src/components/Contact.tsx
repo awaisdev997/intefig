@@ -1,16 +1,10 @@
-import { lazy, Suspense, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, CheckCircle2, Mail, Phone, Globe, MapPin } from 'lucide-react'
 import { CALENDLY, CONTACT, FORMSPREE } from '../data/content'
-import { useOnScreen } from '../hooks/useInView'
-import { useDevicePerformance } from '../hooks/useDevicePerformance'
-import { SceneFallback } from './SceneFallback'
-const LazyCore = lazy(() => import('./three/ContactCore'))
+import { LottieIllustration } from './LottieIllustration'
 export function Contact() {
-  const [boost, setBoost] = useState(false)
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
-  const { ref, onScreen } = useOnScreen<HTMLDivElement>(0.05)
-  const perf = useDevicePerformance()
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); setStatus('sending')
     const fd = new FormData(e.currentTarget)
@@ -25,8 +19,15 @@ export function Contact() {
         <div>
           <p className="eyebrow mb-4 text-sage-300">08 / CONTACT</p>
           <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-tight md:text-6xl">Need help with<br />your <span className="text-accent">projects?</span></h2>
-          <div ref={ref} className="relative mt-4 h-[260px] md:h-[320px]" onMouseEnter={() => setBoost(true)} onMouseLeave={() => setBoost(false)}>
-            {perf.canUse3D ? <Suspense fallback={<SceneFallback dark labels={['CONTACT']} />}><LazyCore boost={boost} active={onScreen} /></Suspense> : <SceneFallback dark labels={['CONTACT', 'EMAIL', 'GROWTH']} />}
+          <div className="relative mt-4 h-[260px] md:h-[320px]">
+            {/* Light panel: the ink line-draw animation needs a light ground to stay legible on this dark section. */}
+            <div className="flex h-full items-center justify-center rounded-[2rem] bg-sage-50 shadow-card">
+              <LottieIllustration
+                label="Animated chat message bubbles"
+                loadData={() => import('../assets/lottie/contact-message.json')}
+                className="h-[200px] w-[200px] md:h-[248px] md:w-[248px]"
+              />
+            </div>
           </div>
           <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75">
             <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 hover:text-white"><Mail size={16} className="text-accent" />{CONTACT.email}</a>
@@ -44,7 +45,7 @@ export function Contact() {
           {status === 'ok' && <p className="mt-5 flex items-center gap-2 rounded-2xl bg-sage-700/50 px-4 py-3 text-sm text-sage-50" role="status"><CheckCircle2 size={17} /> Thanks — we’ll be in touch shortly.</p>}
           {status === 'error' && <p className="mt-5 rounded-2xl bg-accent/25 px-4 py-3 text-sm text-white" role="alert">Something went wrong. Please email {CONTACT.email} directly.</p>}
           <div className="mt-7 flex flex-wrap gap-4">
-            <button type="submit" disabled={status === 'sending'} onMouseEnter={() => setBoost(true)} onMouseLeave={() => setBoost(false)} className="btn-primary disabled:opacity-60">{status === 'sending' ? 'Sending…' : 'Contact Us'} <ArrowUpRight size={16} /></button>
+            <button type="submit" disabled={status === 'sending'} className="btn-primary disabled:opacity-60">{status === 'sending' ? 'Sending…' : 'Contact Us'} <ArrowUpRight size={16} /></button>
             <a href={CALENDLY} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 font-display text-sm font-semibold text-white transition hover:bg-white hover:text-ink active:scale-95">Book a 15-min call</a>
           </div>
         </motion.form>
