@@ -4,6 +4,11 @@ import { FOOTER_NAV, SERVICES, SOCIALS, CONTACT, CALENDLY } from '../data/conten
 import { SERVICE_SLUGS } from '../data/serviceDetails'
 import { NavItemLink } from './NavItemLink'
 import { LOGO_WHITE as logoWhite } from '../assets/logoData'
+import { FacebookIcon, InstagramIcon, LinkedInIcon, TikTokIcon, BehanceIcon, PinterestIcon } from './SocialIcons'
+const SOCIAL_ICONS: Record<string, (p: { size?: number; className?: string }) => JSX.Element> = {
+  Facebook: FacebookIcon, Instagram: InstagramIcon, LinkedIn: LinkedInIcon,
+  TikTok: TikTokIcon, Behance: BehanceIcon, Pinterest: PinterestIcon,
+}
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-sage-800 pt-20 text-white" aria-label="Footer">
@@ -27,7 +32,7 @@ export function Footer() {
               <li>{CONTACT.site}</li><li>{CONTACT.location}</li>
             </ul>
             <h3 className="eyebrow mb-4 mt-8 !text-[10px] text-sage-100">FOLLOW</h3>
-            <ul className="flex flex-wrap gap-2">{SOCIALS.map(s => <li key={s.label}><a href={s.href} target="_blank" rel="noreferrer" aria-label={`INTEFIG on ${s.label}`} className="inline-block rounded-full border border-white/25 px-3.5 py-1.5 text-xs font-semibold text-white/85 transition hover:bg-white hover:text-ink">{s.label}</a></li>)}</ul>
+            <ul className="flex flex-wrap gap-2.5">{SOCIALS.map(s => { const Icon = SOCIAL_ICONS[s.label]; return <li key={s.label}><a href={s.href} target="_blank" rel="noreferrer" aria-label={`INTEFIG on ${s.label}`} title={s.label} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white/85 transition hover:bg-white hover:text-ink">{Icon ? <Icon size={17} /> : s.label}</a></li> })}</ul>
           </div>
         </div>
         <div className="flex flex-col items-center justify-between gap-3 border-t border-white/15 pt-7 text-xs text-white/60 md:flex-row">
