@@ -2,7 +2,8 @@
  * Team photographs extracted from the official INTEFIG website (intefig.com) on 2026-10-22,
  * where each photo is published in the team slot of the named member (window.__SLOTS team-<index>,
  * mapped by the site's own rendering code to its team array order). Stored as WebP data URIs so the
- * repository stays self-contained. Abdur Rafy's slot on the source site contains a generic stock
+ * repository stays self-contained. Muhammad Awais's photo was briefly replaced on Oct 23, 2026 with a portrait he supplied himself; he preferred the original, so the previous photo (team-6-prev) was restored the same day.
+ * Abdur Rafy's slot on the source site contains a generic stock
  * photograph that cannot be verified as him, so he intentionally has no photo here and the UI
  * falls back to a monogram placeholder.
  */
