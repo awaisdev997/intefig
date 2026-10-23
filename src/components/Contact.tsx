@@ -19,7 +19,7 @@ export function Contact() {
               />
             </div>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75">
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/75 md:mt-10">
             <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2 hover:text-white"><Mail size={16} className="text-accent" />{CONTACT.email}</a>
             <a href={CONTACT.phoneHref} className="flex items-center gap-2 hover:text-white"><Phone size={16} className="text-accent" />{CONTACT.phoneDisplay}</a>
             <span className="flex items-center gap-2"><Globe size={16} className="text-accent" />{CONTACT.site}</span>
