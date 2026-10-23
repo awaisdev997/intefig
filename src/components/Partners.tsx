@@ -11,13 +11,10 @@ export function Partners() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" style={{ perspective: 900 }}>
           {PARTNERS.map((p, i) => (
             <motion.div key={p.name} initial={{ opacity: 0, y: 30, rotateX: 8 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ delay: (i % 3) * 0.08, duration: 0.6 }} whileHover={{ y: -8, scale: 1.02, z: 30 }} className="rounded-3xl bg-white p-7 shadow-card" style={{ transform: `translateZ(${i % 3 * 14}px)` }}>
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-display text-2xl font-extrabold tracking-tight text-ink">{p.name}</h3>
-                  <p className="mt-2 text-sm font-medium text-accent">{p.sub}</p>
-                </div>
-                <img src={PARTNER_LOGOS[p.name]} alt={`${p.name} logo`} loading="lazy" className="mt-1 max-h-10 w-auto max-w-[118px] shrink-0 object-contain object-right" />
+              <div className="flex h-12 items-center">
+                <img src={PARTNER_LOGOS[p.name]} alt={`${p.name} logo`} loading="lazy" className="max-h-11 w-auto max-w-[190px] object-contain object-left" />
               </div>
+              <p className="mt-5 inline-flex rounded-full bg-sage-50 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-sage-800">{p.sub}</p>
             </motion.div>
           ))}
         </div>
